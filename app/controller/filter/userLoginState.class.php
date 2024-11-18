@@ -65,12 +65,14 @@ class filterUserLoginState extends Controller {
 	}
 	
 	public function logoutBefore($user){
+		return;
 		if(!is_array($user)) return;
 		$this->userLogoutTrigger($user['userID'],Session::sign());
 	}
 	
 	// 踢出登录用户(根据sessionID)
 	public function userLogoutTrigger($userID,$sid){
+		return;
 		$loginList = $this->userListLoad($userID);
 		if(!is_array($loginList[$sid])) return;
 
@@ -79,6 +81,7 @@ class filterUserLoginState extends Controller {
 		$this->userListSet($userID,$loginList);
 	}
 	private function userLogoutSession($sid){
+		return;
 		$session = Session::getBySign($sid);
 		if(!is_array($session['kodUser'])) return;
 		$session['kodUser'] = false;

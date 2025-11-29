@@ -343,6 +343,10 @@ class userSetting extends Controller {
 	}
 	// 个人操作日志
 	public function userLog(){
+		if($this->user['userID'] != 1){
+			show_json([]);
+			return;
+		}
 		$type = Input::get('type', null, null);
 		$this->in['userID'] = KodUser::id();
 		if(!$this->in['userID']){return;}
@@ -355,6 +359,10 @@ class userSetting extends Controller {
 	}
 	// 个人登录设备
 	public function userDevice(){
+		if($this->user['userID'] != 1){
+			show_json([]);
+			return;
+		}
 		$fromTime = time() - 3600 * 24 * 30 * 3;//最近3个月;
 		$res = Model('SystemLog')->deviceList(USER_ID,$fromTime);
 		show_json($res);
@@ -362,6 +370,10 @@ class userSetting extends Controller {
 	
 	// 当前账号在线设备列表;
 	public function userLoginList(){
+		if($this->user['userID'] != 1){
+			show_json([]);
+			return;
+		}
 		$sign = Session::sign();
 		$arr  = Action("filter.userLoginState")->userListLoad(USER_ID);
 		$arr[$sign]['isSelf'] = true;
